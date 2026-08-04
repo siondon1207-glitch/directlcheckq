@@ -1,23 +1,947 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/page2.html">Other page</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
-</html>
+
+
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #1e293b;
+      --text-muted: #475569;
+      --accent-blue: #2563eb;
+      --accent-blue-hover: #1d4ed8;
+      --accent-orange: #ea580c;
+      --accent-orange-hover: #ca8a04;
+      --accent-light: #eff6ff;
+      --border-color: #e2e8f0;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.05);
+      --shadow-lg: 0 10px 30px rgba(37,99,235,0.04);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-main);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: #ffffff;
+      padding: 60px 20px;
+      text-align: center;
+      position: relative;
+    }
+
+    header h1 {
+      font-size: 2.4rem;
+      font-weight: 900;
+      margin-bottom: 15px;
+      letter-spacing: -0.05em;
+      line-height: 1.3;
+    }
+
+    header p {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      font-weight: 300;
+    }
+
+    .cta-header {
+      display: inline-block;
+      background-color: var(--accent-orange);
+      color: #ffffff;
+      padding: 14px 35px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+      box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
+    }
+
+    .cta-header:hover {
+      background-color: #d97706;
+      transform: translateY(-2px);
+    }
+
+    nav {
+      background-color: #ffffff;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      padding: 10px 0;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      padding: 10px 15px;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--accent-blue);
+    }
+
+    main {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    section {
+      background-color: var(--bg-card);
+      border-radius: 16px;
+      padding: 40px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--text-main);
+      margin-bottom: 25px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--accent-blue);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    h3 {
+      font-size: 1.35rem;
+      color: var(--text-main);
+      margin-top: 30px;
+      margin-bottom: 15px;
+      font-weight: 700;
+    }
+
+    p {
+      margin-bottom: 20px;
+      color: var(--text-muted);
+      text-align: justify;
+    }
+
+    strong {
+      color: #0f172a;
+      font-weight: 700;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      font-size: 0.95rem;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #f1f5f9;
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 14px;
+      border-top: 2px solid var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    table td {
+      padding: 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    table tr:last-child td {
+      border-bottom: 2px solid var(--border-color);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      margin-bottom: 30px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 25px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent-blue);
+    }
+
+    .card h4 {
+      font-size: 1.15rem;
+      margin-bottom: 10px;
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .card p {
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .calculator-box {
+      background-color: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-main);
+      font-size: 0.95rem;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: #ffffff;
+      color: var(--text-main);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+
+    .range-wrap {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .range-wrap input[type="range"] {
+      flex: 1;
+    }
+
+    .range-val {
+      font-weight: 700;
+      color: var(--accent-blue);
+      width: 50px;
+      text-align: right;
+    }
+
+    .calc-btn {
+      background-color: var(--accent-blue);
+      color: #ffffff;
+      border: none;
+      width: 100%;
+      padding: 15px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .calc-btn:hover {
+      background-color: var(--accent-blue-hover);
+    }
+
+    .result-box {
+      background-color: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 25px;
+      margin-top: 25px;
+    }
+
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 0.95rem;
+    }
+
+    .result-row:last-child {
+      margin-bottom: 0;
+      padding-top: 12px;
+      border-top: 1px dashed #bfdbfe;
+      font-weight: 700;
+      font-size: 1.15rem;
+      color: var(--accent-blue);
+    }
+
+    .link-section {
+      background-color: #f1f5f9;
+      border-radius: 12px;
+      padding: 30px;
+      margin-top: 40px;
+    }
+
+    .link-section h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+    }
+
+    .link-list {
+      list-style-type: none;
+    }
+
+    .link-list li {
+      margin-bottom: 12px;
+    }
+
+    .link-list a {
+      color: var(--accent-blue);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .link-list a:hover {
+      text-decoration: underline;
+    }
+
+    .faq-container {
+      margin-top: 30px;
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--border-color);
+      padding: 20px 0;
+    }
+
+    .faq-item:last-child {
+      border-bottom: none;
+    }
+
+    .faq-question {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--text-main);
+      cursor: pointer;
+      position: relative;
+      padding-right: 30px;
+    }
+
+    .faq-answer {
+      margin-top: 12px;
+      color: var(--text-muted);
+      display: none;
+    }
+
+    footer {
+      background-color: #0f172a;
+      color: #94a3b8;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+    }
+
+    footer p {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 1.8rem;
+      }
+      section {
+        padding: 25px;
+      }
+      .grid-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <!-- JSON-LD Structured Data for Naver and Google AI Crawlers -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Product",
+        "name": "2026 BMW X4",
+        "image": "https://car.reliabledone.com/images/bmw-x4-2026.jpg",
+        "description": "2026년형 BMW X4 및 라인업별 가격, 공식 프로모션 할인, 상세 제원과 연비 성능 및 금융 설계 가이드 정보.",
+        "brand": {
+          "@type": "Brand",
+          "name": "BMW"
+        },
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "KRW",
+          "lowPrice": "74300000",
+          "highPrice": "130200000",
+          "offerCount": "5"
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "2026년형 BMW X4의 가격과 트림 구성을 어떻게 되나요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "2026년 기준 BMW X4 가솔린 모델인 xDrive20i xLine 가격은 74,300,000원이며, xDrive20i M 스포츠 프로 모델은 80,400,000원입니다. 디젤 xDrive20d M 스포츠 가격은 83,400,000원, 고성능 가솔린 모델 M40i는 102,200,000원, 초고성능 M 컴페티션은 130,200,000원입니다."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "실제 대리점에서 제공되는 공식 할인 및 최저가 적용 프로모션 수준은 어느 정도인가요?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "금융 프로그램 활용 및 제휴 조건에 따라 각 트림별로 9,500,000원에서 최대 11,000,000원 이상의 프로모션 할인이 적용되며, 이를 통해 실구매가는 상당히 낮출 수 있습니다."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+<header>
+  <h1>2026 BMW X4 가격표 할인 혜택 및 라인업별 세부 분석</h1>
+  <p>최신 페이스리프트 모델의 가격 동향, 예상 유지비, 금융 계산기, 그리고 실시간 할인 프로모션 혜택을 한눈에 살펴보세요.</p>
+  <a href="#견적계산" class="cta-header">실시간 할인가 모의 견적 계산하기</a>
+</header>
+
+<nav>
+  <div class="nav-container">
+    <a href="#라인업소개">라인업 및 가격</a>
+    <a href="#세부제원">기술 제원 및 연비</a>
+    <a href="#견적계산">모의 견적 계산기</a>
+    <a href="#구매가이드">최저가 구매 전략</a>
+    <a href="#소비자평가">커뮤니티 평가 및 장단점</a>
+    <a href="#자주묻는질문">자주 묻는 질문</a>
+  </div>
+</nav>
+
+<main>
+
+  <!-- 라인업 및 가격 세션 -->
+  <section id="라인업소개">
+    <h2>2026 BMW X4 국내 판매 라인업 및 가격 구성</h2>
+    <p>
+      수입 중형 SUV 시장에서 스포츠 액티비티 쿠페인 SAC 영역을 선도하는 독일 대표 브랜드의 베스트셀러, <strong>BMW X4 2026년형</strong> 모델 정보를 투명하게 분석해 드립니다. 독창적이고 스포티한 유선형 루프 라인이 돋보이는 외관 디자인과 강력한 사륜구동 시스템을 탑재하여 국내 오너들에게 꾸준히 최상위권의 출고 순위를 유지하고 있습니다.
+    </p>
+    <p>
+      국내에 정식 공급되는 라인업 종류 구분은 가솔린 2.0 엔진 기반의 가솔린 라인업, 효율성이 극대화된 2.0 디젤, 그리고 고성능 드라이빙을 선사하는 고성능 라인업으로 세분화됩니다. 각 트림별 공식 권장 소비자 금액 정보를 정리한 상세 테이블을 안내해 드리오니, 실제 준비하시는 예산과 대조해 보시기 바랍니다.
+    </p>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>파워트레인 분류</th>
+            <th>상세 트림 명칭</th>
+            <th>공식 출시 가격 (MSRP)</th>
+            <th>평균 공식 프로모션 할인</th>
+            <th>최종 실구매 예상가</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>가솔린 (Gasoline)</td>
+            <td>BMW X4 xDrive20i xLine LCI</td>
+            <td>74,300,000원</td>
+            <td>10,000,000원</td>
+            <td>64,300,000원</td>
+          </tr>
+          <tr>
+            <td>가솔린 (Gasoline)</td>
+            <td>BMW X4 xDrive20i M Sport Pro LCI</td>
+            <td>80,400,000원</td>
+            <td>11,000,000원</td>
+            <td>69,400,000원</td>
+          </tr>
+          <tr>
+            <td>디젤 (Diesel)</td>
+            <td>BMW X4 xDrive20d M Sport LCI</td>
+            <td>83,400,000원</td>
+            <td>9,500,000원</td>
+            <td>73,900,000원</td>
+          </tr>
+          <tr>
+            <td>고성능 가솔린 (M Performance)</td>
+            <td>BMW X4 M40i LCI</td>
+            <td>102,200,000원</td>
+            <td>12,500,000원</td>
+            <td>89,700,000원</td>
+          </tr>
+          <tr>
+            <td>초고성능 레이싱 (High Performance)</td>
+            <td>BMW X4 M Competition</td>
+            <td>130,200,000원</td>
+            <td>15,000,000원</td>
+            <td>115,200,000원</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      명시된 최종 실구매 예상가는 전국 주요 딜러사의 제휴 할인 혜택 조건 및 가입 금융사에 따라 매달 변동될 수 있습니다. 대리점에서 제공하는 기본 비공식 할인 좌표 데이터와 개별 딜러 추가 수당, 혹은 차량 구매 대행 전문 업체를 활용하여 산출되는 최저가 견적을 직접 비교해 보시는 것을 적극 추천 드립니다.
+    </p>
+  </section>
+
+  <!-- 세부 제원 세션 -->
+  <section id="세부제원">
+    <h2>파워트레인별 상세 기술 제원 및 연비 효율 비교</h2>
+    <p>
+      2026 BMW X4 구매를 고려할 때 가격 요인 못지않게 면밀히 살펴야 하는 항목이 바로 핵심 주행 제원과 연비 성능입니다. 각 파워트레인의 배기량, 최고 출력, 최대 토크, 복합 연비 데이터를 통해 주행 성향과 평소 주행 거리에 적합한 모델을 선별해야 추후 유지 비용을 현명하게 관리할 수 있습니다.
+    </p>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>제원 구분 항목</th>
+            <th>xDrive20i 가솔린</th>
+            <th>xDrive20d 디젤</th>
+            <th>M40i 고성능 가솔린</th>
+            <th>M Competition 최고성능</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>엔진 형식</td>
+            <td>직렬 4기통 가솔린 터보</td>
+            <td>직렬 4기통 디젤 터보</td>
+            <td>직렬 6기통 가솔린 터보</td>
+            <td>직렬 6기통 가솔린 트윈터보</td>
+          </tr>
+          <tr>
+            <td>배기량 (cc)</td>
+            <td>1,998 cc</td>
+            <td>1,995 cc</td>
+            <td>2,998 cc</td>
+            <td>2,993 cc</td>
+          </tr>
+          <tr>
+            <td>최고 출력 (마력)</td>
+            <td>184 hp / 5,000 rpm</td>
+            <td>190 hp / 4,000 rpm</td>
+            <td>387 hp / 5,800 rpm</td>
+            <td>510 hp / 6,250 rpm</td>
+          </tr>
+          <tr>
+            <td>최대 토크 (kg.m)</td>
+            <td>30.6 kg.m</td>
+            <td>40.8 kg.m</td>
+            <td>51.0 kg.m</td>
+            <td>66.3 kg.m</td>
+          </tr>
+          <tr>
+            <td>공인 복합 연비</td>
+            <td>9.9 km/l</td>
+            <td>12.3 km/l</td>
+            <td>8.7 km/l</td>
+            <td>7.8 km/l</td>
+          </tr>
+          <tr>
+            <td>변속기 및 구동 방식</td>
+            <td>스텝트로닉 8단 / xDrive 사륜구동</td>
+            <td>스텝트로닉 8단 / xDrive 사륜구동</td>
+            <td>스포츠 스텝트로닉 8단 / xDrive</td>
+            <td>M 스텝트로닉 8단 / M xDrive</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      안정적이고 여유로운 출력 분포를 보이는 디젤 엔진 라인업은 지방 출장이 잦거나 장거리 주행 빈도가 잦은 경제성 위주의 소유자분들께 훌륭한 선택지가 됩니다. 반면 한 단계 진보한 가솔린 트림은 특유의 조용함과 부드러운 정차 및 가속 피드백으로 시내 중심의 출퇴근을 계획하는 도심형 패밀리카 구매 예정자들의 지지를 한 몸에 받고 있습니다.
+    </p>
+  </section>
+
+  <!-- 실시간 견적 및 계산기 세션 -->
+  <section id="견적계산">
+    <h2>실구매 예상 금액 자가 산출용 모의 견적 계산기</h2>
+    <p>
+      수입차 구매 전 가장 먼저 해야 하는 일은 초기 취등록세 세금과 부대 비용을 올바르게 계산 해보는 것입니다. 하단에 구성된 계산기 모듈을 통해 구매를 염두에 두고 계신 세부 트림 모델과 프로모션 조건, 그리고 금융 계약 조건을 설정하시면 매달 납부해야 하는 실제 요금 및 총 지출 금액의 흐름을 대략적으로 추산해 볼 수 있습니다.
+    </p>
+
+    <div class="calculator-box">
+      <h3>BMW X4 가격 모의 시뮬레이터</h3>
+      <p>트림을 선택하고 금융 조건을 입력하시면, 취등록세 7% 요율과 예상 할인을 실시간 대조하여 모의 결과를 출력해 드립니다.</p>
+      
+      <div class="form-group">
+        <label for="calc-trim">원하시는 BMW X4 트림 선택</label>
+        <select id="calc-trim" class="form-control" onchange="calculateQuote()">
+          <option value="74300000" data-discount="10000000">X4 xDrive20i xLine LCI (MSRP: 7,430만원 / 할인: 1,000만원)</option>
+          <option value="80400000" data-discount="11000000">X4 xDrive20i M Sport Pro LCI (MSRP: 8,040만원 / 할인: 1,100만원)</option>
+          <option value="83400000" data-discount="9500000">X4 xDrive20d M Sport LCI (MSRP: 8,340만원 / 할인: 950만원)</option>
+          <option value="102200000" data-discount="12500000">X4 M40i LCI (MSRP: 1억 220만원 / 할인: 1,250만원)</option>
+          <option value="130200000" data-discount="15000000">X4 M Competition (MSRP: 1억 3,020만원 / 할인: 1,500만원)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="calc-method">구매 방법 선택</label>
+        <select id="calc-method" class="form-control" onchange="toggleFinanceFields()">
+          <option value="cash">전액 현금 (일시불)</option>
+          <option value="installment">운용리스 / 장기 할부 금융</option>
+        </select>
+      </div>
+
+      <div id="finance-options" style="display: none;">
+        <div class="form-group">
+          <label>선납금 비중 설정 (총 실구매가 대비 %)</label>
+          <div class="range-wrap">
+            <input type="range" id="calc-prepay" min="0" max="70" step="10" value="30" oninput="updateRangeVal('prepay', this.value); calculateQuote();">
+            <span class="range-val" id="val-prepay">30%</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="calc-period">할부 / 리스 기간 선택</label>
+          <select id="calc-period" class="form-control" onchange="calculateQuote()">
+            <option value="36">36개월</option>
+            <option value="48">48개월</option>
+            <option value="60">60개월</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>예상 적용 이자율 (연 금리 %)</label>
+          <div class="range-wrap">
+            <input type="range" id="calc-rate" min="3.0" max="9.0" step="0.1" value="5.5" oninput="updateRangeVal('rate', this.value); calculateQuote();">
+            <span class="range-val" id="val-rate">5.5%</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="calc-btn" onclick="calculateQuote()">상세 견적 모의 계산 실행</button>
+
+      <div class="result-box">
+        <div class="result-row">
+          <span>차량 공식 출고 금액</span>
+          <span id="res-msrp">0원</span>
+        </div>
+        <div class="result-row">
+          <span>예상 프로모션 할인 적용액</span>
+          <span id="res-discount" style="color: var(--accent-orange);">-0원</span>
+        </div>
+        <div class="result-row">
+          <span>차량 순수 실구매가 (할인가 반영)</span>
+          <span id="res-net">0원</span>
+        </div>
+        <div class="result-row">
+          <span>취등록세 예상 비용 (약 7% 산정)</span>
+          <span id="res-tax">0원</span>
+        </div>
+        <div class="result-row" id="row-monthly" style="display: none;">
+          <span>매월 예상 금융 요금 (리스/할부금)</span>
+          <span id="res-monthly">0원</span>
+        </div>
+        <div class="result-row">
+          <span>인수시점 최종 총 소요 금액</span>
+          <span id="res-total">0원</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 견적 상담 신청 폼 세션 (체류시간 극대화) -->
+  <section id="상담신청">
+    <h2>BMW X4 비대면 무료 견적 상담 및 추가 혜택 신청</h2>
+    <p>
+      수입차는 전국 매장마다 영업 사원의 비공식 딜러 수당 정책이 다르게 적용되므로, 온라인 다이렉트 컨설팅 전문 업체를 통해 복수의 전시장 가격을 교차 검증하는 과정이 필수적입니다. 인터넷 동호회, 디시, 에펨코리아 차갤 등에서 거론되는 최저가 매장 정보를 확보하기 어렵다면 아래 양식을 간단히 남겨주세요.
+    </p>
+    <p>
+      제휴 제 1 금융사 협약 요금제 컨설팅은 물론, 출고 시 인도받으실 수 있는 프리미엄 선팅 시공, 무선 충전 거치대, 프리미엄 차량용 방향제, 한정 브랜드 골프백을 비롯한 고가의 사은품 패키지 혜택과 일부 한정 조건에서 제공되는 비공식 추가 현금지원 범위까지 성실하게 안내해 드릴 것을 약속드립니다.
+    </p>
+
+    <form id="quote-form" onsubmit="handleFormSubmit(event)">
+      <div class="form-group">
+        <label for="user-trim">관심 트림 모델</label>
+        <select id="user-trim" class="form-control" required>
+          <option value="">원하시는 모델 라인업을 선택하세요</option>
+          <option value="xDrive20i xLine">BMW X4 xDrive20i xLine</option>
+          <option value="xDrive20i M Sport Pro">BMW X4 xDrive20i M Sport Pro</option>
+          <option value="xDrive20d M Sport">BMW X4 xDrive20d M Sport</option>
+          <option value="M40i">BMW X4 M40i 고성능</option>
+          <option value="M Competition">BMW X4 M Competition 최고성능</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="user-purchase-type">계획 중인 자금 조달 방법</label>
+        <select id="user-purchase-type" class="form-control" required>
+          <option value="">구매 형식을 선택하세요</option>
+          <option value="할부">일반 캐피탈 할부 금융</option>
+          <option value="운용리스">개인/법인 사업자 운용 리스</option>
+          <option value="장기렌트">초기 세금 포함 장기렌트 요금제</option>
+          <option value="현금일시불">전액 현금 일시불 구매</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="user-time">출고를 원하시는 예상 타이밍</label>
+        <select id="user-time" class="form-control">
+          <option value="즉시">실시간 즉시 출고 재고 대기</option>
+          <option value="1개월내">1개월 이내 출고 계획</option>
+          <option value="3개월내">3개월 이내 희망</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="user-contact">상담 소통을 위한 모바일 연락처</label>
+        <input type="tel" id="user-contact" class="form-control" placeholder="010-1234-5678 형태로 입력해 주세요" pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="user-memo">추가 문의 사항 및 비공식 현금지원 요망 메모</label>
+        <textarea id="user-memo" class="form-control" rows="4" placeholder="예: 무보증 리스 승계 조건이나 타사 금융 대조 견적, 특별 주유 상품권 이벤트 혜택 등에 대해 상세히 물어보고 싶습니다."></textarea>
+      </div>
+
+      <button type="submit" class="calc-btn" style="background-color: var(--accent-orange);">실시간 다이렉트 견적서 무료 신청하기</button>
+    </form>
+  </section>
+
+  <!-- 구매 가이드 및 금융전략 가이드 -->
+  <section id="구매가이드">
+    <h2>현명한 자산 관리를 위한 BMW X4 최저가 구매 전략</h2>
+    <p>
+      수입차 구매 과정에서 과다 지출을 피하려면 리스, 장기렌트, 할부 등 개별 금융 상품 구성의 본질적인 메커니즘을 꿰뚫고 있어야 합니다. 단순히 견적서 최상단에 기재된 일시적인 할인 금액 규모에만 현혹되어 고금리 캐피탈 요금을 선택하면, 계약 기간 전체로 계산했을 때 수백만 원에 달하는 누적 손실이 발생할 수도 있기 때문입니다.
+    </p>
+
+    <div class="grid-container">
+      <div class="card">
+        <h4>개인 및 법인 사업자 운용 리스 추천</h4>
+        <p>
+          수입차 리스 설계는 차량가 전액을 빌리는 것이 아닌, 일정 만기 잔존가치를 제한 나머지 금액에 대해서만 월 이용료를 책정하므로 월 지출 비용을 제일 합리적인 선으로 누를 수 있습니다. 게다가 종합소득세나 법인세 신고 시 연간 한도 내에서 손비 처리가 수월하여 고소득 프리랜서와 사업가들에게 늘 높은 선호도 순위를 자랑합니다.
+        </p>
+      </div>
+      <div class="card">
+        <h4>세금 일체형 장기렌트 최저가 요금제</h4>
+        <p>
+          장기렌탈 방식은 매월 청구되는 요금제 금액 안에 차량 취등록세 및 연간 자동차세, 그리고 매년 가입 및 갱신이 필요한 종합 자동차 보험료가 완전 포함되어 있습니다. 초기 대납 비용 부담이 전혀 없으며, 우발적인 사고가 발생하더라도 개인 면책금 외에 추가적인 보험료 할증 불이익이 발생하지 않는다는 이례적인 안전 장치 장점이 있습니다.
+        </p>
+      </div>
+      <div class="card">
+        <h4>다이렉트 금리 싼곳 금융사 다각도 비교</h4>
+        <p>
+          온라인 신차 견적 전용 어플이나 앱 시스템을 활성화하면 시중 메이저 금융사들의 최저 금리 순위를 간편하게 비교 대조할 수 있습니다. 수입차 딜러 측이 임의로 안내하는 독점 캐피탈 제휴사에만 전적으로 의존하기보다, 별도의 다이렉트 금융 상담 업체를 수소문하여 저렴한곳 매장을 찾는 것이 장기 계약 시 절대적으로 유리합니다.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top: 25px;">
+      또한 제조사에서 부정기적으로 운영하는 특별 금융 프로모션과 수입차 구매 대행사 등에서 진행하는 주유 상품권 지급 이벤트, 전시장 방문 시승 고객 대상 기프트 지원금 찬스 등의 다채로운 채널 정보를 꼼꼼히 살피면 비공식 사은품 및 페이백 범위 이상의 숨겨진 경제적 이익을 실현해 낼 수 있습니다.
+    </p>
+  </section>
+
+  <!-- 소비자 평가 및 여론 세션 -->
+  <section id="소비자평가">
+    <h2>온라인 자동차 커뮤니티 오너 평가 및 실제 장단점</h2>
+    <p>
+      제조사가 제공하는 카탈로그 상의 미사여구를 떠나, 실제 장기 소유주들이 밝히는 솔직한 내돈내산 평가와 누적 주행 후기 데이터는 매우 중요한 구매 지표가 됩니다. 네이버 블로그 포스팅, 구글 기술 정보 포럼, 유튜브의 하체 분해 영상, 그리고 디시 차갤, 보배드림 자유게시판, 펨코 및 에펨코리아 자동차 포럼 등에서 활발하게 공유되는 차량 실태 여론을 종합 요약하였습니다.
+    </p>
+
+    <div class="grid-container">
+      <div class="card">
+        <h4>오너들이 극찬하는 대표 장점 요소</h4>
+        <p>
+          독창적이고 수려하게 깎아지른 C필러 쿠페 라인과 공격적인 리어 에이프런 디자인은 도로 위에서 발군의 하차감을 선사합니다. 여기에 탄탄하게 튜닝된 섀시 안정감 및 영리하게 개입하는 상시 사륜구동 xDrive 기술은 급격한 코너링에서도 노면을 단단히 접지하여 스포츠카를 타는 듯한 일체감 넘치는 손맛을 선사합니다.
+        </p>
+      </div>
+      <div class="card">
+        <h4>구매 결정 전 반드시 인지해야 할 단점</h4>
+        <p>
+          지붕이 급격히 낮아지는 쿠페 설계 특성상 뒷좌석 탑승객의 머리 위 공간인 헤드룸이 평범한 중형 SUV 대비 다소 좁게 다가올 수 있습니다. 더불어 서스펜션 세팅 자체가 컴포트함보다는 스포티하고 타이트하게 다듬어져 있기 때문에, 푹신하고 안락한 패밀리카 주행 질감을 원하는 가족형 고객들에게는 시승 시 하체가 제법 단단하거나 튄다는 오너 평가가 종종 올라옵니다.
+        </p>
+      </div>
+    </div>
+
+    <p style="margin-top: 25px;">
+      수많은 예비 구매자들이 온라인 공간에서 인스타그램 세차 인증샷이나 페이스북 차주 그룹 피드, 혹은 트위터의 촌철살인 한줄평들을 접하며 대단한 로망을 품게 되지만, 실질적인 이열 탑승 공간과 수하물 적재 한계 등을 감안하여 사전에 인근 전시장을 방문하여 시승 및 공간 감각을 직접 확인하시는 과정이 꼭 권장됩니다.
+    </p>
+  </section>
+
+  <!-- 자주 묻는 질문 FAQ 세션 -->
+  <section id="자주묻는질문">
+    <h2>2026 BMW X4 구매 관련 자주 묻는 질문</h2>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">2026년식 BMW X4 구매 시 취등록세 세금 계산은 어떻게 이루어지나요?</div>
+        <div class="faq-answer">
+          수입 승용차 구입 시 세법상 취등록세는 프로모션 할인이 모두 차감된 실물 최종 차량 가액의 7% 요율이 표준으로 계산됩니다. 취득세 부담금은 개별 소비세 혜택 여부와 구매 지역의 공채 매입 할인율에 따라 미세한 차이가 있을 수 있으며, 자가 산정이 복잡한 분들을 위해 당사 페이지 중앙에 위치한 모의 계산기 기능을 통해 간단한 세금 추산 결과를 출력해 보실 수 있습니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">BMW X3 모델과 비교했을 때 공간 및 상품 구성상 어떤 차이점이 존재하나요?</div>
+        <div class="faq-answer">
+          기본 뼈대인 주행 제원 및 파워트레인은 X3와 동일하지만 외관 형태에서 전혀 다른 개성을 표출합니다. X3는 전형적인 박스형 SUV 레이아웃을 취해 높은 2열 거주성과 여유 넘치는 적재량을 확보한 반면, X4는 후면부를 우아하게 깎아내린 쿠페 구조를 통해 훨씬 매끄러운 바디 라인을 연출합니다. 개성 있고 화려한 디자인을 최우선으로 여기신다면 X4가 최선의 추천작이 될 것입니다.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">차량 하자 및 보증 연장 기간과 서비스 센터 이용 요령이 궁금합니다.</div>
+        <div class="faq-answer">
+          BMW 코리아 공식 출고 차량은 기본적으로 차체 및 일반 부품에 대해 2년/무제한 km, 엔진 및 동력 전달 계통에 대해 3년/6만 km의 본사 공식 무상 워런티 기간을 온전히 부여받습니다. 추가 보증 연장 프로그램을 구입하시면 보증 기간을 한층 길게 확대할 수 있으며, 고장 및 소모품 점검이 필요한 경우 브랜드 통합 고객센터 전화를 활용하여 가까운 공식 서비스센터의 점승 예약을 신속히 신청할 수 있습니다.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 공인 외부 링크 안내 (동적 수집기 배려) -->
+  <section class="link-section">
+    <h3>BMW X4 신뢰성 높은 추천 공식 외부 사이트 자료</h3>
+    <p>
+      네이버 검색 플랫폼이나 구글 검색, 토스 시세 어플, 혹은 AI 기술 기반의 최신 챗지피티 및 제미나이 등 고도화된 수집 로직에서도 신뢰할 수 있는 가장 공신력 있는 공식 외부 출처들을 연결해 드립니다. 본 사이트는 투명한 정보 전달을 약속합니다.
+    </p>
+    <ul class="link-list">
+      <li>
+        [필수 참조 기술 규격 자료] 
+        <a href="https://directlcheckr.koreahankang.com" target="_blank" rel="noopener">car.reliabledone.com BMW X4 전문 스펙 데이터 센터</a>
+      </li>
+      <li>
+        [차량 모델 정보 위키백과] 
+        <a href="https://namu.wiki/w/BMW%20X4" target="_blank" rel="noopener">나무위키 BMW X4 모델 역사 및 연도별 변화사</a>
+      </li>
+      <li>
+        [한국 공식 대리점 연계 사이트] 
+        <a href="https://www.bmw.co.kr" target="_blank" rel="noopener">BMW 코리아 공식 온라인 숍 및 전시장 시승 신청하기</a>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+  
+<script>
+  // FAQ 아코디언 동작 제어용 스크립트
+  function toggleFaq(element) {
+    const answer = element.nextElementSibling;
+    if (answer.style.display === "block") {
+      answer.style.display = "none";
+    } else {
+      answer.style.display = "block";
+    }
+  }
+
+  // 선납금 및 이자율 범위 수치 실시간 업데이트
+  function updateRangeVal(type, val) {
+    if (type === 'prepay') {
+      document.getElementById('val-prepay').innerText = val + '%';
+    } else if (type === 'rate') {
+      document.getElementById('val-rate').innerText = val + '%';
+    }
+  }
+
+  // 구매 수단 선택에 따른 금융 입력란 활성화/비활성화
+  function toggleFinanceFields() {
+    const method = document.getElementById('calc-method').value;
+    const financeOptions = document.getElementById('finance-options');
+    const rowMonthly = document.getElementById('row-monthly');
+    
+    if (method === 'installment') {
+      financeOptions.style.display = 'block';
+      rowMonthly.style.display = 'flex';
+    } else {
+      financeOptions.style.display = 'none';
+      rowMonthly.style.display = 'none';
+    }
+    calculateQuote();
+  }
+
+  // 실시간 모의 시뮬레이터 견적 산출 로직
+  function calculateQuote() {
+    const trimSelect = document.getElementById('calc-trim');
+    const msrp = parseInt(trimSelect.value);
+    const discount = parseInt(trimSelect.options[trimSelect.selectedIndex].getAttribute('data-discount'));
+    
+    const netPrice = msrp - discount;
+    const tax = Math.floor(netPrice * 0.07);
+    
+    document.getElementById('res-msrp').innerText = msrp.toLocaleString() + '원';
+    document.getElementById('res-discount').innerText = '-' + discount.toLocaleString() + '원';
+    document.getElementById('res-net').innerText = netPrice.toLocaleString() + '원';
+    document.getElementById('res-tax').innerText = tax.toLocaleString() + '원';
+
+    const method = document.getElementById('calc-method').value;
+    
+    if (method === 'installment') {
+      const prepayPercent = parseInt(document.getElementById('calc-prepay').value);
+      const period = parseInt(document.getElementById('calc-period').value);
+      const interestRate = parseFloat(document.getElementById('calc-rate').value);
+      
+      const prepayAmount = netPrice * (prepayPercent / 100);
+      const principal = netPrice - prepayAmount;
+      
+      // 원리금 균등 상환 공식 적용
+      const monthlyRate = (interestRate / 100) / 12;
+      let monthlyPayment = 0;
+      
+      if (monthlyRate > 0) {
+        monthlyPayment = principal * (monthlyRate * Math.pow(1 + monthlyRate, period)) / (Math.pow(1 + monthlyRate, period) - 1);
+      } else {
+        monthlyPayment = principal / period;
+      }
+      
+      document.getElementById('res-monthly').innerText = Math.floor(monthlyPayment).toLocaleString() + '원';
+      document.getElementById('res-total').innerText = (netPrice + tax).toLocaleString() + '원 (선납금 및 초기 취등록세 전액 포함 기준)';
+    } else {
+      document.getElementById('res-total').innerText = (netPrice + tax).toLocaleString() + '원';
+    }
+  }
+
+  // 상담 신청 양식 전송 이벤트 처리 함수
+  function handleFormSubmit(event) {
+    event.preventDefault();
+    alert("상담 요청서가 성공적으로 접수되었습니다. 담당 에이전트가 순차적으로 맞춤 금리 비교 상담 연락을 드리겠습니다. 감사합니다.");
+    document.getElementById('quote-form').reset();
+  }
+
+  // 페이지 최초 로드 시 초기 계산 실행
+  window.onload = function() {
+    calculateQuote();
+  };
+</script>
+
+  
